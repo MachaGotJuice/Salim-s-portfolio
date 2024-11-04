@@ -1,0 +1,41 @@
+"""
+Auteurs: ELOUAHDANI Salim et GUENNOUNI Yassine
+Date et lieu: Année 2022/2023 au Lycée Henri Poincaré
+Description: Commande du transistor à l'aide d'un detecteur optique
+"""
+
+
+char R1 = A0; #définition de la variable R1
+char gate = 7; #définition de la variable gate
+int val_crit = 900; #définition de la variable valeur critique: valeur CONSTANTE que lis A0 lorsque la photores est pointée par 
+#le laser
+
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600); #Permet d'ouvrir le moniteur 
+  pinMode(gate, OUTPUT); #Définit la broche 7 comme étant une broche de sortie
+  pinMode(R1, INPUT); #Définit la broche A0 comme étant une broche d'entrée
+  
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+ 
+  int u_R1 = analogRead(R1); #Défint la variable u_R1 qui contient la valeur lue sur A0
+  Serial.println(u_R1); #Affiche u_R1 sur le moniteur
+
+  
+  if  (u_R1 < val_crit) { #si la valeur lue par A0 est en dessous de la valeur critique
+      digitalWrite(gate,HIGH); # alors envoie 5V sur 7 pour fermer le MOSFET
+      delay(1000);  #délai de 1 seconde
+  }
+  else #sinon
+
+  
+    digitalWrite(gate,LOW); #on envoie 0V sur 7 ce qui laisse le MOSFET ouvert
+  
+  delay(1);
+
+    
+
+}
